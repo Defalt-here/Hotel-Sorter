@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link href="https://fonts.googleapis.com/css?family=Irish Grover" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hotel Sorter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-image: url("texture_foodle.png");
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .hotel {
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .hotel h4 {
+            margin: 0;
+            color: #ffd700;
+        }
+        .sort-options,
+        .algorithm-options {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+        h1 {
+            background: linear-gradient(90deg, #ff0004, #f69e9e);
+            background-clip: text;
+            color: transparent;
+            font-family: "Irish Grover";
+            font-size: 8vh;
+        }
+
+        .button-5 {
+            align-items: center;
+            background-clip: padding-box;
+            background-color: #fa6400;
+            border: 1px solid transparent;
+            border-radius: 0.25rem;
+            box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+            box-sizing: border-box;
+            color: #fff;
+            cursor: pointer;
+            display: inline-flex;
+            font-family: system-ui, -apple-system, system-ui, "Helvetica Neue",
+            Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            justify-content: center;
+            line-height: 1.25;
+            margin: 0;
+            min-height: 3rem;
+            padding: calc(0.875rem - 1px) calc(1.5rem - 1px);
+            position: relative;
+            text-decoration: none;
+            transition: all 250ms;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            vertical-align: baseline;
+            width: auto;
+            margin-left: 7vw;
+        }
+
+        .button-5:hover,
+        .button-5:focus {
+            background-color: #fb8332;
+            box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+        }
+
+        .button-5:hover {
+            transform: translateY(-1px);
+        }
+
+        .button-5:active {
+            background-color: #c85000;
+            box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+            transform: translateY(0);
+        }
+
+        #timeComplexity {
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1 align="center">Foodle</h1>
+
+    <div class="container">
+        <h2 align="center">Hotel Sorter</h2>
+
+        <div class="sort-options">
+            <p>Select key to sort by:</p>
+            <input type="radio" id="rating" name="sortKey" value="rating" checked />
+            <label for="rating">Rating</label>
+
+            <input type="radio" id="price" name="sortKey" value="price" />
+            <label for="price">Price</label>
+
+            <input type="radio" id="distance" name="sortKey" value="distance" />
+            <label for="distance">Distance</label>
+        </div>
+
+        <div class="algorithm-options">
+            <label for="algorithm">Choose sorting algorithm:</label>
+            <select id="algorithm">
+                <option value="bubble">Bubble Sort</option>
+                <option value="selection">Selection Sort</option>
+                <option value="insertion">Insertion Sort</option>
+            </select>
+        </div>
+
+        <button onclick="sortHotels()" class="button-5">Sort Hotels</button>
+        <button class="button-5" onclick="window.location.href='Index.html'">Home</button>
+
+        <h2>Hotels List</h2>
+        <div id="hotelsList"></div>
+        <div id="timeComplexity"></div>
+    </div>
+
+    <script>
+        const hotels = [
+            { name: "Hotel A", rating: 4.2, price: 120, distance: 3.5 },
+            { name: "Hotel B", rating: 3.9, price: 80, distance: 2.0 },
+            { name: "Hotel C", rating: 4.7, price: 200, distance: 5.0 },
+            { name: "Hotel D", rating: 4.5, price: 150, distance: 1.5 },
+            { name: "Hotel E", rating: 5, price: 60, distance: 4.0 },
+        ];
+
+        function displayHotels(hotelList) {
+            const hotelContainer = document.getElementById("hotelsList");
+            hotelContainer.innerHTML = "";
+
+            hotelList.forEach((hotel) => {
+                hotelContainer.innerHTML += `
+                    <div class="hotel">
+                        <h4>${hotel.name}</h4>
+                        <p>Rating: ${hotel.rating}, Price: $${hotel.price}, Distance: ${hotel.distance} km</p>
+                    </div>
+                `;
+            });
+        }
+
+        function showTimeComplexity(algorithm, elapsedTime) {
+            const complexity = {
+                bubble: "O(n^2)",
+                selection: "O(n^2)",
+                insertion: "O(n^2)",
+            };
+
+            const timeComplexity = document.getElementById("timeComplexity");
+            timeComplexity.innerHTML = `
+                <p>Time Complexity of ${algorithm} Sort: <strong>${complexity[algorithm]}</strong></p>
+                <p>Time Elapsed: <strong>${elapsedTime.toFixed(4)} ms</strong></p>
+            `;
+        }
+
+        // Bubble Sort Algorithm
+        function bubbleSort(arr, key) {
+            let len = arr.length;
+            for (let i = 0; i < len; i++) {
+                for (let j = 0; j < len - i - 1; j++) {
+                    if (arr[j][key] > arr[j + 1][key]) {
+                        let temp = arr[j];
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = temp;
+                    }
+                }
+            }
+            return arr;
+        }
+
+        // Selection Sort Algorithm
+        function selectionSort(arr, key) {
+            let len = arr.length;
+            for (let i = 0; i < len; i++) {
+                let minIndex = i;
+                for (let j = i + 1; j < len; j++) {
+                    if (arr[j][key] < arr[minIndex][key]) {
+                        minIndex = j;
+                    }
+                }
+                if (minIndex !== i) {
+                    let temp = arr[i];
+                    arr[i] = arr[minIndex];
+                    arr[minIndex] = temp;
+                }
+            }
+            return arr;
+        }
+
+        // Insertion Sort Algorithm
+        function insertionSort(arr, key) {
+            let len = arr.length;
+            for (let i = 1; i < len; i++) {
+                let keyVal = arr[i];
+                let j = i - 1;
+                while (j >= 0 && arr[j][key] > keyVal[key]) {
+                    arr[j + 1] = arr[j];
+                    j = j - 1;
+                }
+                arr[j + 1] = keyVal;
+            }
+            return arr;
+        }
+
+        function sortHotels() {
+            const selectedKey = document.querySelector('input[name="sortKey"]:checked').value;
+            const selectedAlgorithm = document.getElementById("algorithm").value;
+
+            let sortedHotels;
+            const startTime = performance.now(); // Start timer
+
+            if (selectedAlgorithm === "bubble") {
+                sortedHotels = bubbleSort([...hotels], selectedKey);
+            } else if (selectedAlgorithm === "selection") {
+                sortedHotels = selectionSort([...hotels], selectedKey);
+            } else if (selectedAlgorithm === "insertion") {
+                sortedHotels = insertionSort([...hotels], selectedKey);
+            }
+
+            const endTime = performance.now(); // End timer
+            const elapsedTime = endTime - startTime; // Calculate elapsed time
+
+            displayHotels(sortedHotels);
+            showTimeComplexity(selectedAlgorithm, elapsedTime);
+        }
+
+        // Display hotels on page load
+        displayHotels(hotels);
+    </script>
+</body>
+</html>

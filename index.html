@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+    href="https://fonts.googleapis.com/css?family=Irish Grover"
+    rel="stylesheet"
+  />
+    <title>Foodle</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: "Arial", sans-serif;
+        background-image: url("texture_foodle.png");
+        background-size: cover;
+        background-position: center;
+        color: white;
+      }
+
+      /* Navbar */
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .navbar h1 {
+        margin-left: 45vw;
+        font-size: 2.5em;
+        letter-spacing: 3px;
+      }
+      .button-5 {
+        align-items: center;
+        background-clip: padding-box;
+        background-color: #fa6400;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+        box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: inline-flex;
+        font-family: system-ui, -apple-system, system-ui, "Helvetica Neue",
+          Helvetica, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        justify-content: center;
+        line-height: 1.25;
+        margin: 0;
+        min-height: 3rem;
+        padding: calc(0.875rem - 1px) calc(1.5rem - 1px);
+        position: relative;
+        text-decoration: none;
+        transition: all 250ms;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: baseline;
+        width: auto;
+        margin-left: 7vw;
+      }
+
+      .button-5:hover,
+      .button-5:focus {
+        background-color: #fb8332;
+        box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+      }
+
+      .button-5:hover {
+        transform: translateY(-1px);
+      }
+
+      .button-5:active {
+        background-color: #c85000;
+        box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+        transform: translateY(0);
+      }
+
+      /* Centered Content */
+      .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+        text-align: center;
+      }
+
+      h1 {
+        background: linear-gradient(90deg, #ff0004, #f69e9e);
+        background-clip: text;
+        color: transparent;
+        font-family: "Irish Grover";
+        font-size: 15vh;
+      }
+
+      .content p {
+        margin-top: 20px;
+        font-size: 1.2em;
+        line-height: 1.5;
+        width: 60%;
+        padding: 20px;
+        border-radius: 10px;
+        color: black;
+      }
+
+      /* Millennial Vibe for About Us */
+      .about-text {
+        font-size: 1.3em;
+        font-family: "Verdana", sans-serif;
+        padding: 20px;
+        border-radius: 8px;
+        color: #fff8dc;
+        max-width: 800px;
+        margin: 30px auto;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div class="navbar" align = 'center'>
+      <h1>Foodle</h1>
+      <button onclick="window.location.href='HotelSort.html'" class="button-5">
+        Hotel Sorter
+      </button>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <p class="about-text">
+        We're not just about rating restaurants; we're about creating an
+        experience. At Foodle, we know the importance of a good meal and an even
+        better vibe. From hidden gems to trending spots, we’ve got the inside
+        scoop. We love our customers, and we’re here to guide you to the best
+        dining experiences. So, trust us — your next meal is about to be lit!
+      </p>
+    </div>
+  </body>
+</html>
